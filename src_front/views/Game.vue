@@ -100,6 +100,7 @@ export default class Game extends Vue {
 		let lvl = parseInt(this.level) - 1;
 		lvl = lvl > 0 && lvl < this.$store.state.levels.length? lvl : 0;
 		this.data = this.$store.state.levels[ lvl ];
+		this.data.items.forEach(v => v.f = false);
 		this.renderFrame();
 	}
 
