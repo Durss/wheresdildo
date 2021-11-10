@@ -41,7 +41,7 @@ export default new Vuex.Store({
 				picture: "level3.jpg",
 				items:[
 					{f:false, x:820, y:2251, w:94, h:163, i:1},
-					{f:false, x:763, y:1374, w:109, h:42, i:2},
+					{f:false, x:778, y:1375, w:102, h:46, i:2},
 					{f:false, x:3575, y:2122, w:76, h:81, i:3},
 					{f:false, x:2783, y:1506, w:73, h:160, i:4},
 					{f:false, x:4415, y:2004, w:90, h:103, i:5},
