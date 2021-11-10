@@ -57,7 +57,7 @@ export default class Home extends Vue {
 			gsap.from(bt, {duration:.5, delay:delay+.1, y:0, opacity:0, rotate:35, ease:"back.out"});
 			delay += .15;
 		}
-		gsap.to(this.$refs.logo, {duration:delay, bottom:-20, delay:2, ease:"sine.inOut"});
+		gsap.to(this.$refs.logo, {duration:delay, bottom:-15, delay:2, ease:"sine.inOut"});
 	}
 
 	public beforeDestroy():void {
@@ -197,9 +197,9 @@ export default class Home extends Vue {
 		position: absolute;
 		left: 50%;
 		transform: translateX(-50%);
-		@ratio: .75;
-		height: 581px * @ratio;
-		bottom: -450px * @ratio;
+		@ratio: .7;
+		height: 646px * @ratio;
+		bottom: -515px * @ratio;
 	}
 
 
@@ -225,9 +225,9 @@ export default class Home extends Vue {
 			}
 		}
 		.logo {
-			@ratio: .5;
-			height: 581px * @ratio;
-			bottom: -450px * @ratio;
+			@ratio: .45;
+			height: 646px * @ratio;
+			bottom: -350px * @ratio;
 			// bottom: -290px;
 		}
 	}
