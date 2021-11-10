@@ -92,10 +92,14 @@ export default class App extends Vue {
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: @mainColor_dark;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
 
 	.view {
-		height: 100%;
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
 	}
 }
 </style>

@@ -241,6 +241,7 @@ export interface LevelDataItem {
 			padding: 20px 30px;
 			transition: transform .5s ease-out;
 			transform: translate(-50%, 0);
+			font-size: 3em;
 
 			&.slide-enter-active, &.slide-leave-active {
 				transform: translate(-50%, 0px);
@@ -340,7 +341,7 @@ export interface LevelDataItem {
 @media only screen 
 and (min-device-width : 320px) 
 and (max-device-width : 480px) {
-	.Game{
+	.game{
 		.hud {
 			.timer {
 				top: -10px;

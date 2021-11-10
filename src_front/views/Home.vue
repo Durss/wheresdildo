@@ -129,11 +129,6 @@ export default class Home extends Vue {
 
 <style scoped lang="less">
 .home{
-	width: 100vw;
-	height: 100vh;
-	// opacity: 0;
-	overflow: hidden;
-
 	.menu {
 		padding-bottom: 30px;
 

@@ -30,12 +30,13 @@ export default class Footer extends Vue {
 	position: absolute;
 	border: 3px dashed #2c2c2c;
 	box-shadow: -5px 5px 0px #25252555;
-	bottom: -5px;
-	right: -5px;
+	bottom: 0;
+	right: 0;
 	background-color: #fff;
-	padding: 5px;
-	border-radius: 10px;
-	border-bottom-right-radius: 0;
+	padding: 5px 2px 2px 5px;
+	border-top-left-radius: 15px;
+	border-right: unset;
+	border-bottom: unset;
 	transition: padding .25s;
 	img {
 		height: 40px;
