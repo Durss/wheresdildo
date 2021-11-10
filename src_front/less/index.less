@@ -1,0 +1,94 @@
+// @import "_includes.less";
+@import "fonts.less";
+@import "reset.less";
+@import "components/form.less";
+@import "components/infinitelist.less";
+
+body, html {
+    padding: 0;
+    margin: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-family: "Nunito", Helvetica, Arial, sans-serif;
+	font-size: 23px;
+	color: @mainColor_normal;
+	width: 100%;
+	height: 100%;
+	min-width: 200px;
+	min-height: 200px;
+	overflow: hidden;
+	background-color: #7dbae6;
+}
+
+*:focus:not(:focus-visible) {
+	outline: none;
+}
+
+a {
+	text-decoration: none;
+	color: @mainColor_highlight;
+}
+
+.fatText {
+	font-family: "Optima-ExtraBlack";
+	font-size: 5vw;
+	color: #1da6d7;
+	-webkit-text-stroke: 3px #2c2c2c;
+	text-shadow: -7px 7px 0px #c2c2c2;
+
+	@media only screen 
+	and (min-device-width : 320px) 
+	and (max-device-width : 480px) {
+		font-size: 10vw;
+		-webkit-text-stroke: 2px #2c2c2c;
+		text-shadow: -4px 4px 0px #c2c2c2;
+	}
+}
+
+.menu {
+	position: absolute;
+	top: 50px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	background-color: #fff;
+	width: 80vw;
+	max-width: 800px;
+	padding: 20px;
+	box-sizing: border-box;
+	text-align: center;
+	border-radius: 30px;
+	border: 3px dashed #2c2c2c;
+	box-shadow: -5px 5px 0px #25252555;
+}
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+	.menu {
+		width: 90vw;
+		border-width: 2px;
+	}
+}
+
+//Expose color theme to JS
+#lessVars {
+	.mainColor_light{ color:@mainColor_light; }
+	.mainColor_normal{ color:@mainColor_normal; }
+	.mainColor_dark{ color:@mainColor_dark; }
+	.mainColor_highlight{ color:@mainColor_highlight; }
+	.mainColor_warn{ color:@mainColor_warn; }
+	.mainColor_alert{ color:@mainColor_alert; }
+
+	.mainColor_light_light{ color:@mainColor_light_light; }
+	.mainColor_normal_light{ color:@mainColor_normal_light; }
+	.mainColor_dark_light{ color:@mainColor_dark_light; }
+	.mainColor_highlight_light{ color:@mainColor_highlight_light; }
+	.mainColor_warn_light{ color:@mainColor_warn_light; }
+	.mainColor_alert_light{ color:@mainColor_alert_light; }
+
+	.mainColor_light_extralight{ color:@mainColor_light_extralight; }
+	.mainColor_normal_extralight{ color:@mainColor_normal_extralight; }
+	.mainColor_dark_extralight{ color:@mainColor_dark_extralight; }
+	.mainColor_highlight_extralight{ color:@mainColor_highlight_extralight; }
+	.mainColor_warn_extralight{ color:@mainColor_warn_extralight; }
+	.mainColor_alert_extralight{ color:@mainColor_alert_extralight; }
+}
