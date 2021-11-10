@@ -15,7 +15,7 @@
 				<div class="timer" v-if="timeLeft > 0">{{time}}</div>
 			</transition>
 			
-			<Button :icon="require('@/assets/icons/duck.svg')" class="infoBt" ref="infoBt" @click="onShowHints()" />
+			<Button :icon="require('@/assets/icons/duck.svg')" :title="foundCount+'/'+data.items.length" class="infoBt" ref="infoBt" @click="onShowHints()" />
 			
 			<transition name="slide">
 				<Hints v-if="showHints && timeLeft > 0" class="hints" :data="data" @close="showHints = false" />
@@ -256,6 +256,10 @@ export interface LevelDataItem {
 			top: 10px;
 			left: 10px;
 			box-shadow: -4px 4px 0px #252525;
+			padding-right: 15px;
+			/deep/ img {
+				margin-right: 2px;
+			}
 		}
 
 		.hints {

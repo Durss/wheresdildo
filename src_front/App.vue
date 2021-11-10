@@ -3,16 +3,19 @@
 	<div id="app" class="app">
 		<router-view class="view" v-if="loadComplete" />
 		<Confirm />
+		<Footer />
 	</div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import Footer from "./components/Footer.vue";
 import Confirm from "./views/Confirm.vue";
 
 @Component({
 	components:{
 		Confirm,
+		Footer,
 	}
 })
 export default class App extends Vue {
