@@ -32,7 +32,7 @@
 						<strong>{{finalTimeLeftFormated}}</strong>
 					</div>
 					<div v-if="!allFound">
-						<strong>{{foundCount}}</strong>
+						<strong>{{foundCount}}/{{data.items.length}}</strong>
 						<div>DILDO(S) FOUND</div>
 					</div>
 				</div>

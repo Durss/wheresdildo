@@ -47,7 +47,7 @@ export default new Vuex.Store({
 					{f:false, x:4415, y:2004, w:90, h:103, i:5},
 					{f:false, x:3859, y:794, w:36, h:86, i:6},
 					{f:false, x:3646, y:2704, w:50, h:107, i:7},
-					{f:false, x:2532, y:1389, w:82, h:40, i:8},
+					{f:false, x:2505, y:1387, w:106, h:43, i:8},
 					{f:false, x:684, y:569, w:69, h:70, i:9},
 				]
 			}
