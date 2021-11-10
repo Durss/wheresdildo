@@ -2,11 +2,7 @@
 node_modules
 /dist
 /server
-/target
-/uploads
-/resources/jesuismort/backups/*
-env.conf
-Durss Overlay.json
+/graphics
 
 # local env files
 .env.local
