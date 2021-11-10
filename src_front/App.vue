@@ -26,7 +26,7 @@ export default class App extends Vue {
 	public async mounted():Promise<void> {
 		
 		//Preload elements
-		let preloaders = [require.context("@/assets/icons/"), require.context("@/assets/images/"), require.context("@/assets/fonts/")];
+		let preloaders = [require.context("@/assets/icons/"), require.context("@/assets/images/objects"), require.context("@/assets/fonts/")];
 		for (let i = 0; i < preloaders.length; i++) {
 			preloaders[i].keys().forEach(file => {
 				let el:any = preloaders[i](file);
@@ -64,6 +64,7 @@ export default class App extends Vue {
 	}
 
 	public onLoadComplete():void {
+		clearTimeout(this.timeoutStuckCheck);
 		this.loadCount++;
 		let total = this.preloadedFiles.length;
 		if(this.loadCount >= total) {
@@ -72,7 +73,6 @@ export default class App extends Vue {
 		}
 
 		//Avoid getting stuck if a loading never ends
-		clearTimeout(this.timeoutStuckCheck);
 		this.timeoutStuckCheck = setTimeout(_=> {
 			console.log("Loading stuck at", this.loadCount +"/"+ total);
 			this.loadCount = total-1;

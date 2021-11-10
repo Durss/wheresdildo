@@ -3,7 +3,11 @@
 		<ManipulableImage class="image" :zoomMin=".25" :zoomMax="2" v-if="data">
 			<div>
 				<div class="item" v-for="(i, index) in data.items" :key="index" :style="getStyles(i)" @click="onItemFound(i)"></div>
-				<img src="@/assets/images/level3.jpg" draggable="false">
+				<img :src="require('@/assets/images/'+data.picture)" draggable="false">
+
+				<div ref="stars" class="stars">
+					<img src="@/assets/icons/star.svg" alt="star" ref="star" v-for="i in 15" :key="i">
+				</div>
 			</div>
 		</ManipulableImage>
 		<div class="hud">
@@ -45,7 +49,7 @@ import Hints from "@/less/components/Hints.vue";
 import Utils from "@/utils/Utils";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 
 @Component({
 	components:{
@@ -55,6 +59,9 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 	}
 })
 export default class Game extends Vue {
+
+	@Prop()
+	public level:string;
 
 	public data:LevelData = null;
 	public showHints:boolean = false;
@@ -67,21 +74,6 @@ export default class Game extends Vue {
 	// private timerDuration:number = 2 * 1000;
 	private timeLeft:number = 0;
 	private startTime:number = Date.now();
-	private levels:LevelData[] = [
-		{
-			items:[
-				{f:false, x:802, y:2249, w:145, h:176, i:1},
-				{f:false, x:763, y:1374, w:109, h:42, i:2},
-				{f:false, x:3575, y:2122, w:76, h:81, i:3},
-				{f:false, x:2780, y:1508, w:66, h:141, i:4},
-				{f:false, x:4317, y:1931, w:105, h:118, i:5},
-				{f:false, x:3862, y:792, w:39, h:87, i:6},
-				{f:false, x:3646, y:2704, w:50, h:107, i:7},
-				{f:false, x:2532, y:1389, w:82, h:40, i:8},
-				{f:false, x:684, y:569, w:69, h:70, i:9},
-			]
-		}
-	];
 
 	public get finalTimeLeftFormated():string {
 		return Utils.formatDuration(this.finalTimeLeft, true);
@@ -105,7 +97,9 @@ export default class Game extends Vue {
 	}
 
 	public mounted():void {
-		this.data = this.levels[0];
+		let lvl = parseInt(this.level) - 1;
+		lvl = lvl > 0 && lvl < this.$store.state.levels.length? lvl : 0;
+		this.data = this.$store.state.levels[ lvl ];
 		this.renderFrame();
 	}
 
@@ -132,6 +126,7 @@ export default class Game extends Vue {
 	public onItemFound(i:LevelDataItem):void {
 		if(i.f === true) return;
 		i.f = true;
+		this.burstParticles(i);
 		this.allFound = true;
 		this.foundCount = 0;
 		for (let i = 0; i < this.data.items.length; i++) {
@@ -177,10 +172,35 @@ export default class Game extends Vue {
 		this.$router.push("/");
 	}
 
+	public burstParticles(item:LevelDataItem):void {
+		let stars = <Element[]>this.$refs.star;
+		for (let i = 0; i < stars.length; i++) {
+			const s = stars[i];
+			gsap.killTweensOf(s);
+			let px = Math.random() * item.w + item.x - 30;
+			let py = Math.random() * item.h + item.y - 30;
+			gsap.set(s, {opacity:1, x:px, y:py, scale:Math.random()*1 + .5});
+			gsap.to(s, {opacity:0,
+						rotation:(Math.random()-Math.random()) * Math.PI * 2.5+"rad",
+						x:px + (Math.random()-Math.random()) * 200,
+						y:py + (Math.random()-Math.random()) * 100,
+						scale:0,
+						duration:1.25});
+		}
+		setTimeout(_=> {
+			//Reset stars to avoid page overflow on small screens
+			for (let i = 0; i < stars.length; i++) {
+				const s = stars[i];
+				gsap.set(s, {opacity:1, x:0, y:0, scale:0});
+			}
+		},1500)
+	}
+
 }
 
 export interface LevelData {
-	items:LevelDataItem[]
+	items:LevelDataItem[];
+	picture:string;
 }
 
 export interface LevelDataItem {
@@ -243,14 +263,14 @@ export interface LevelDataItem {
 			left:0;
 			border-top-left-radius: 0;
 			border-bottom-left-radius: 0;
-			transition: transform .5s ease-out;
+			transition: transform .25s ease-out;
 			transform: translate(0, 0);
 
 			&.slide-enter-active, &.slide-leave-active {
 				transform: translate(0px, 0px);
 			}
 			&.slide-enter, &.slide-leave-to {
-				transition: transform .5s ease-in;
+				transition: transform .25s ease-in;
 				transform: translate(-100%, 0px);
 			}
 		}
@@ -296,6 +316,21 @@ export interface LevelDataItem {
 			}
 		}
 	}
+
+	.stars {
+		position: absolute;
+		top: 0;
+		left: 0;
+		pointer-events: none;
+		img {
+			opacity: 0;
+			position: absolute;
+			width: 35px;
+			height: 35px;
+			transform-origin: center center;
+		}
+	}
+
 }
 
 @media only screen 

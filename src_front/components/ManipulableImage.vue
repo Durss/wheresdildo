@@ -210,11 +210,14 @@ export default class ManipulableImage extends Vue {
 		if(bounds.width > vw) {
 			if(this.pos.x > 0) this.pos.x = 0;
 			if(this.pos.x < vw - bounds.width) this.pos.x = vw - bounds.width;
-			if(this.pos.y > 0) this.pos.y = 0;
-			if(this.pos.y < vh - bounds.height) this.pos.y = vh - bounds.height;
 		}else{
 			//Center on screen
 			this.pos.x = (vw - bounds.width)/2;
+		}
+		if(bounds.height > vh) {
+			if(this.pos.y > 0) this.pos.y = 0;
+			if(this.pos.y < vh - bounds.height) this.pos.y = vh - bounds.height;
+		}else{
 			this.pos.y = (vh - bounds.height)/2;
 		}
 

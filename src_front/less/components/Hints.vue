@@ -106,4 +106,12 @@ export default class Hints extends Vue {
 		}
 	}
 }
+
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+	.hints{
+		width: 100%;
+	}
+}
 </style>

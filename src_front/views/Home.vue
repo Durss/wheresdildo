@@ -5,14 +5,25 @@
 				<div>WHERE'S</div>
 				<div class="red">DILDO?</div>
 			</div>
-			<Button class="startBt" title="Play" @click="play()" ref="startBt" />
+			
+			<div class="levels">
+				<Button class="startBt" title="Level1" @click="preloadLevel(1)" ref="startBt1" />
+				<Button class="startBt" title="Level2" @click="preloadLevel(2)" ref="startBt2" />
+				<Button class="startBt" title="Level3" @click="preloadLevel(3)" ref="startBt3" />
+			</div>
+			
+			<div class="loader" v-if="loading">Loading level...</div>
+
+			<div class="error" v-if="error" @click="error=null">Woops...loading has failed :(</div>
 		</div>
+
 		<img src="@/assets/images/logo.png" alt="logo" ref="logo" class="logo">
 	</div>
 </template>
 
 <script lang="ts">
 import Button from "@/components/Button.vue";
+import Utils from "@/utils/Utils";
 import gsap, { SplitText } from "gsap/all";
 import { Component, Vue } from "vue-property-decorator";
 
@@ -23,6 +34,8 @@ import { Component, Vue } from "vue-property-decorator";
 })
 export default class Home extends Vue {
 
+	public loading:boolean = false;
+	public error:boolean = false;
 	
 	public mounted():void {
 		let mySplitText = new SplitText(this.$refs.title, { type: "chars,words" });
@@ -36,10 +49,14 @@ export default class Home extends Vue {
 			delay += .05
 			gsap.from(c, {duration:1, scale:.8, rotate, opacity:0, delay, y:50, ease:"elastic.out"});
 		}
-		let bt = (this.$refs.startBt as Vue).$el;
-		gsap.from(bt, {duration:1.5, delay, scaleX:.5, ease:"elastic.out(1.5,.25)"});
-		gsap.from(bt, {duration:1.5, delay:delay+.1, scaleY:.5, ease:"elastic.out(1.5,.25)"});
-		gsap.from(bt, {duration:.5, delay:delay+.1, y:0, opacity:0, rotate:35, ease:"back.out"});
+		
+		for (let i = 0; i < 3; i++) {
+			let bt = (this.$refs["startBt"+(i+1)] as Vue).$el;
+			gsap.from(bt, {duration:1.5, delay, scaleX:.5, ease:"elastic.out(1.5,.25)"});
+			gsap.from(bt, {duration:1.5, delay:delay+.1, scaleY:.5, ease:"elastic.out(1.5,.25)"});
+			gsap.from(bt, {duration:.5, delay:delay+.1, y:0, opacity:0, rotate:35, ease:"back.out"});
+			delay += .15;
+		}
 		gsap.to(this.$refs.logo, {duration:delay, bottom:-20, delay:2, ease:"sine.inOut"});
 	}
 
@@ -47,22 +64,63 @@ export default class Home extends Vue {
 		
 	}
 
-	public play():void {
-		let bt = (this.$refs.startBt as Vue).$el;
-		gsap.killTweensOf(bt);
+	public play(level:number):void {
 		gsap.killTweensOf(this.$refs.logo);
 		gsap.killTweensOf(this.$refs.menu);
-
-		gsap.set(bt, {scaleX:1, scaleY:1, rotate:0, opacity:1});
-		gsap.from(bt, {duration:1, scaleX:1.2, ease:"elastic.out(1.5,.25)"});
-		gsap.from(bt, {duration:1, scaleY:1.2, ease:"elastic.out(1.5,.25)"});
 		
 		gsap.to(this.$refs.logo, {duration:.5, bottom:-500, ease:"sine.inOut"});
 		gsap.to(this.$refs.menu, {duration:.5, scale:0, ease:"back.in"});
 		
-		setTimeout(_=> {
-			this.$router.push("/play");
-		}, 500)
+		setTimeout(() => {
+			this.$router.push("/play/"+level);
+		}, 500);
+	}
+
+	public async preloadLevel(level:number):Promise<void> {
+		this.error = false;
+		let bt = (this.$refs["startBt"+level] as Vue).$el;
+		gsap.killTweensOf(bt);
+		gsap.set(bt, {scaleX:1, scaleY:1, rotate:0, opacity:1});
+		gsap.from(bt, {duration:1, scaleX:1.2, ease:"elastic.out(1.5,.25)"});
+		gsap.from(bt, {duration:1, scaleY:1.2, ease:"elastic.out(1.5,.25)"});
+		
+		// await Utils.promisedTimeout(250);
+
+		// for (let i = 0; i < 3; i++) {
+		// 	let bt = (this.$refs["startBt"+(i+1)] as Vue).$el;
+		// 	gsap.to(bt, {duration:.5, delay:i*.1, scale:0, ease:"back.in"});
+		// }
+
+		this.loading = true;
+		await Utils.promisedTimeout(250);
+
+		let loader = new Image();
+		let ctx = require.context("@/assets/images/");
+		let file = ctx.keys().find(v => v.indexOf("level"+level) > -1);
+		
+		let url;
+		try { url = ctx(file); }catch(error){};
+		loader.src = url;
+		loader.addEventListener("error", (e)=> {
+			console.error("Loading image failed ! error");
+			console.log(e);
+			this.loading = false;
+			this.error = true;
+		})
+		loader.addEventListener("abort", (e)=> {
+			console.error("Loading image failed ! abort");
+			console.log(e);
+			this.loading = false;
+			this.error = true;
+		})
+		loader.addEventListener("stalled", (e)=> {
+			// console.error("Loading image failed ! stalled");
+			// console.log(e);
+		})
+		loader.addEventListener("load",(e)=> {
+			// console.log("IMAGE OK");
+			this.play(level);
+		})
 	}
 
 }
@@ -107,16 +165,35 @@ export default class Home extends Vue {
 			}
 		}
 
-		.startBt {
-			font-size: 2em;
-			color: #fff;
-			background-color: @mainColor_highlight;
-			padding: 15px 30px;
-			border-radius: 50px;
+		.loader {
 			margin-top: 20px;
-			transition: background-color .5s;
-			&:hover {
-				background-color: @mainColor_highlight_light;
+			color: @mainColor_normal;
+			font-weight: bold;
+		}
+
+		.error {
+			margin-top: 20px;
+			color: @mainColor_highlight;
+			font-weight: bold;
+		}
+
+		.levels {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: space-evenly;
+	
+			.startBt {
+				font-size: 2em;
+				color: #fff;
+				background-color: @mainColor_highlight;
+				padding: 15px 30px;
+				border-radius: 50px;
+				margin-top: 20px;
+				transition: background-color .5s;
+				&:hover {
+					background-color: @mainColor_highlight_light;
+				}
 			}
 		}
 	}
@@ -143,11 +220,13 @@ export default class Home extends Vue {
 				text-shadow: -6px 6px 0px #2c2c2c5e;
 			}
 
-			.startBt {
-				font-size: 1.5em;
-				color: #fff;
-				background-color: @mainColor_highlight;
-				padding: 10px 20px;
+			.levels {
+				.startBt {
+					font-size: 1.5em;
+					color: #fff;
+					background-color: @mainColor_highlight;
+					padding: 10px 20px;
+				}
 			}
 		}
 		.logo {

@@ -15,8 +15,9 @@ const routes: Array<RouteConfig> = [
 		}
 	},
 	{
-		path: '/play',
+		path: '/play/:level',
 		name: 'play',
+		props:true,
 		component: Game,
 		meta:{
 			noTwitch:true,
