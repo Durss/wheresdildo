@@ -18,11 +18,11 @@ export default new Vuex.Store({
 			{
 				picture: "level1.jpg",
 				items:[
-					{f:false, x:998, y:55, w:56, h:43, i:10},
-					{f:false, x:2811, y:1475, w:40, h:82, i:11},
-					{f:false, x:588, y:1158, w:68, h:65, i:12},
-					{f:false, x:3008, y:352, w:56, h:105, i:13},
-					{f:false, x:3128, y:1222, w:33, h:76, i:14},
+					{f:false, x:1987, y:501, w:36, h:42, i:5},
+					{f:false, x:2061, y:106, w:31, h:51, i:7},
+					{f:false, x:392, y:698, w:15, h:57, i:10},
+					{f:false, x:2738, y:1734, w:67, h:71, i:11},
+					{f:false, x:1108, y:955, w:53, h:82, i:13},
 				]
 			},
 			{
