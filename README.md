@@ -1,4 +1,6 @@
-# Twitch overlay
+# Where's Didlo
+A quickly made stupid game:\
+https://dildo.durss.ninja
 
 ## Project setup
 ```
