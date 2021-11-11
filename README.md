@@ -2,6 +2,9 @@
 A quickly made stupid game:\
 https://dildo.durss.ninja
 
+Dildos drawing made by the marvellous Fibertooth:\
+https://www.instagram.com/fibertooth/
+
 ## Project setup
 ```
 npm install
