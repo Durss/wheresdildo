@@ -2,20 +2,20 @@
 <template>
 	<div id="app" class="app">
 		<router-view class="view" v-if="loadComplete" />
-		<Confirm />
 		<Footer />
+		<Tooltip />
 	</div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Footer from "./components/Footer.vue";
-import Confirm from "./views/Confirm.vue";
+import Tooltip from "./components/Tooltip.vue";
 
 @Component({
 	components:{
-		Confirm,
 		Footer,
+		Tooltip,
 	}
 })
 export default class App extends Vue {

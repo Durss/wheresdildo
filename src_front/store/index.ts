@@ -6,14 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	state: {
 		initialized: false,
-		confirm:{
-			title:null,
-			description:null,
-			confirmCallback:null,
-			cancelCallback:null,
-			yesLabel:null,
-			noLabel:null,
-		},
+		tooltip: null,
 		levels: [
 			{
 				picture: "level1.jpg",
@@ -54,9 +47,9 @@ export default new Vuex.Store({
 		]
 	},
 	mutations: {
-
-
-		confirm(state, payload) { state.confirm = payload; },
+		openTooltip(state, payload) { state.tooltip = payload; },
+		
+		closeTooltip(state) { state.tooltip = null; },
 	},
 	actions: {
 		async startApp({ state, commit, dispatch }, payload) { 
@@ -67,7 +60,8 @@ export default new Vuex.Store({
 			return true;
 		},
 
-
-		confirm({commit}, payload) { commit("confirm", payload); },
+		openTooltip({commit}, payload) { commit("openTooltip", payload); },
+		
+		closeTooltip({commit}) { commit("closeTooltip", null); },
 	},
 })

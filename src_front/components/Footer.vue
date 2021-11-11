@@ -1,6 +1,9 @@
 <template>
 	<div class="footer">
-		<a href="https://github.com/Durss/wheresdildo" target="_blank">
+		<a href="https://www.instagram.com/fibertooth/" target="_blank" data-tooltip="Dildos drawing <br />made by Fibertooth">
+			<img src="@/assets/icons/instagram.svg" alt="logo" height="18">
+		</a>
+		<a href="https://github.com/Durss/wheresdildo" target="_blank" data-tooltip="Source code">
 			<img src="@/assets/icons/github.svg" alt="logo" height="18">
 		</a>
 	</div>
@@ -29,20 +32,24 @@ export default class Footer extends Vue {
 .footer{
 	position: absolute;
 	border: 3px dashed #2c2c2c;
-	box-shadow: -5px 5px 0px #25252555;
+	box-shadow: 5px 5px 0px #25252555;
 	bottom: 0;
-	right: 0;
+	left: 0;
 	background-color: #fff;
-	padding: 5px 2px 2px 5px;
-	border-top-left-radius: 15px;
-	border-right: unset;
+	padding: 5px 5px 2px 2px;
+	border-top-right-radius: 15px;
+	border-left: unset;
 	border-bottom: unset;
-	transition: padding .25s;
-	img {
-		height: 40px;
+	a {
+		img {
+			transition: height .25s;
+			height: 40px;
+		}
 	}
-	&:hover {
-		padding: 10px;
+	a:hover {
+		img {
+			height: 50px;
+		}
 	}
 }
 @media only screen 
