@@ -1,4 +1,4 @@
-# Where's Didlo
+# Where's Dildo
 A quickly made stupid game:\
 https://dildo.durss.ninja
 
