@@ -15,7 +15,7 @@
 				<div class="timer" v-if="timeLeft > 0">{{time}}</div>
 			</transition>
 			
-			<Button :icon="require('@/assets/icons/duck.svg')" :title="foundCount+'/'+data.items.length" class="infoBt" ref="infoBt" @click="onShowHints()" />
+			<Button :icon="require('@/assets/icons/duck.svg')" v-if="data" :title="foundCount+'/'+data.items.length" class="infoBt" ref="infoBt" @click="onShowHints()" />
 			
 			<transition name="slide">
 				<Hints v-if="showHints && timeLeft > 0" class="hints" :data="data" @close="showHints = false" />
@@ -72,7 +72,7 @@ export default class Game extends Vue {
 	private disposed:boolean = false;
 	private timerDuration:number = 2 * 60 * 1000;
 	// private timerDuration:number = 2 * 1000;
-	private timeLeft:number = 0;
+	private timeLeft:number = -1;
 	private startTime:number = Date.now();
 
 	public get finalTimeLeftFormated():string {

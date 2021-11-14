@@ -56,7 +56,7 @@ export default class Hints extends Vue {
 	.menu;
 	max-height: 100vh;
 	height: 100%;
-	width: 300px;
+	width: 320px;
 	padding-top: 16px;
 
 	.closeBt {

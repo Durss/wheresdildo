@@ -10,6 +10,7 @@
 				<Button class="startBt" title="Level1" @click="preloadLevel(1)" ref="startBt1" />
 				<Button class="startBt" title="Level2" @click="preloadLevel(2)" ref="startBt2" />
 				<Button class="startBt" title="Level3" @click="preloadLevel(3)" ref="startBt3" />
+				<Button class="startBt" title="Level4" @click="preloadLevel(4)" ref="startBt4" v-if="showLevel4" />
 			</div>
 			
 			<div class="loader" v-if="loading">Loading level...</div>
@@ -36,8 +37,12 @@ export default class Home extends Vue {
 
 	public loading:boolean = false;
 	public error:boolean = false;
+	public showLevel4:boolean = false;
 	
-	public mounted():void {
+	public async mounted():Promise<void> {
+		this.showLevel4 = Date.now() >= new Date("Sat Nov 20 2021 18:00:00 GMT+0100").getTime();
+		// this.showLevel4 = Date.now() >= new Date("Sun Nov 14 2021 23:48:12 GMT+0100").getTime();
+		await this.$nextTick();
 		let mySplitText = new SplitText(this.$refs.title, { type: "chars,words" });
 		gsap.from(this.$refs.menu, {duration:1, y:200, opacity:0, ease:"back.out"});
 		let delay = .5;
@@ -50,7 +55,8 @@ export default class Home extends Vue {
 			gsap.from(c, {duration:1, scale:.8, rotate, opacity:0, delay, y:50, ease:"elastic.out"});
 		}
 		
-		for (let i = 0; i < 3; i++) {
+		let levelsCount = document.getElementsByClassName("startBt").length;
+		for (let i = 0; i < levelsCount; i++) {
 			let bt = (this.$refs["startBt"+(i+1)] as Vue).$el;
 			gsap.from(bt, {duration:1.5, delay, scaleX:.5, ease:"elastic.out(1.5,.25)"});
 			gsap.from(bt, {duration:1.5, delay:delay+.1, scaleY:.5, ease:"elastic.out(1.5,.25)"});
@@ -147,7 +153,7 @@ export default class Home extends Vue {
 		.title {
 			font-family: "Optima-ExtraBlack";
 			// font-size: min(40px, 17vw);
-			font-size: 15vh;
+			font-size: 12vh;
 			text-align: center;
 			color: #1da6d7;
 			-webkit-text-stroke: 4px #2c2c2c;
@@ -179,7 +185,7 @@ export default class Home extends Vue {
 			justify-content: space-evenly;
 	
 			.startBt {
-				font-size: 2em;
+				font-size: 1.5em;
 				color: #fff;
 				background-color: @mainColor_highlight;
 				padding: 15px 30px;
@@ -227,7 +233,7 @@ export default class Home extends Vue {
 		.logo {
 			@ratio: .45;
 			height: 646px * @ratio;
-			bottom: -350px * @ratio;
+			bottom: -515px * @ratio;
 			// bottom: -290px;
 		}
 	}

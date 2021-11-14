@@ -43,6 +43,25 @@ export default new Vuex.Store({
 					{f:false, x:2505, y:1387, w:106, h:43, i:8},
 					{f:false, x:684, y:569, w:69, h:70, i:9},
 				]
+			},
+			{
+				picture: "level4.jpg",
+				items:[
+					{f:false, x:1017, y:1001, w:43, h:76, i:1},
+					{f:false, x:1610, y:986, w:45, h:98, i:2},
+					{f:false, x:301, y:1549, w:16, h:40, i:3},
+					{f:false, x:1916, y:1405, w:88, h:33, i:4},
+					{f:false, x:270, y:1063, w:37, h:41, i:5},
+					{f:false, x:1478, y:1417, w:22, h:52, i:6},
+					{f:false, x:2544, y:1057, w:28, h:60, i:7},
+					{f:false, x:1709, y:984, w:40, h:81, i:8},
+					{f:false, x:2708, y:1447, w:38, h:39, i:9},
+					{f:false, x:786, y:1372, w:16, h:64, i:10},
+					{f:false, x:2458, y:572, w:67, h:42, i:11},
+					{f:false, x:485, y:1765, w:15, h:33, i:12},
+					{f:false, x:802, y:573, w:40, h:26, i:13},
+					{f:false, x:1963, y:1909, w:49, h:117, i:14},
+				]
 			}
 		]
 	},
