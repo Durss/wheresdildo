@@ -237,5 +237,28 @@ export default class Home extends Vue {
 			// bottom: -290px;
 		}
 	}
+
+
+	@media only screen 
+	and (min-device-width : 320px) {
+		.menu {
+			.title {
+				font-size: 12vw;
+			}
+
+			.levels {
+				.startBt {
+					font-size: 1em;
+					padding: 10px 20px;
+				}
+			}
+		}
+		.logo {
+			@ratio: .35;
+			height: 646px * @ratio;
+			bottom: -515px * @ratio;
+			// bottom: -290px;
+		}
+	}
 }
 </style>

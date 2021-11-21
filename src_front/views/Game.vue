@@ -353,4 +353,17 @@ and (max-device-width : 480px) {
 		}
 	}
 }
+
+
+@media only screen 
+and (min-device-width : 320px) {
+	.game{
+		.infoBt {
+			font-size: .8em;
+			top: 50px !important;
+			left: 50% !important;
+			transform: translate(-50%,0) !important;
+		}
+	}
+}
 </style>
