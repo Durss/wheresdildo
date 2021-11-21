@@ -1,3 +1,5 @@
+<a href="https://dildo.durss.ninja" target="_blank"><img src="https://github.com/Durss/wheresdildo/blob/main/public/share/share_small.jpg" height="300" /></a>
+<br>
 # Where's Dildo
 A quickly made stupid game:\
 https://dildo.durss.ninja
